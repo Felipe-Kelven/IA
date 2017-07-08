@@ -3,6 +3,8 @@
 
 import os
 import mysql.connector
+import datetime
+import time
 
 desde_archivo = 'historial.txt'
 rutaserver = 'server.txt'
@@ -16,7 +18,7 @@ os.system("espeak -s130 -k20 -ves+f5 'Ingrese peso'")
 peso =  raw_input("Ingrese peso: ")
 os.system("espeak -s130 -k20 -ves+f5 'Ingrese mes de cumpleaños'")
 me =  raw_input("Ingrese mes en el que cumples años: ")
-os.system("espeak -s130 -k20 -ves+f5 'Ingrese dia de cumpleaños'")
+os.system("espeak -s130 -k20 -ves+f5 'Ingrese día de cumpleaños'")
 dipo =  raw_input("Ingrese dia en el que cumples años: ")
 
 cursor=con.cursor()
@@ -65,7 +67,39 @@ def resumido(respuesta,result):
 
         
 while True:
-        
+    archih1 =  open("h1.txt", "r")
+    h1 = archih1.read()
+    archim1 =  open("m1.txt", "r")
+    m1 = archim1.read()
+    hora = datetime.datetime.now()
+    
+    archih1 =  open("h2.txt", "r")
+    h2 = archih1.read()
+    archim1 =  open("m2.txt", "r")
+    m2 = archim1.read()
+    hora = datetime.datetime.now()
+    
+    archih1 =  open("h3.txt", "r")
+    h3 = archih1.read()
+    archim1 =  open("m3.txt", "r")
+    m3 = archim1.read()
+    hora = datetime.datetime.now()
+    
+    hora1 = hora.replace(hour=int(h1), minute=int(m1), second=0, microsecond=0)
+    hora2 = hora.replace(hour=int(h1), minute=int(m1), second=5, microsecond=0)
+    hora3 = hora.replace(hour=int(h2), minute=int(m2), second=0, microsecond=0)
+    hora4 = hora.replace(hour=int(h2), minute=int(m2), second=5, microsecond=0)
+    hora5 = hora.replace(hour=int(h3), minute=int(m3), second=0, microsecond=0)
+    hora6 = hora.replace(hour=int(h3), minute=int(m3), second=5, microsecond=0)
+    
+    if hora>hora1 and hora<hora2:
+        os.system("sudo python notifi.py")
+    elif hora>hora3 and hora<hora4:
+        os.system("sudo python notifi1.py")
+    elif hora>hora5 and hora<hora6:
+        os.system("sudo python notifi2.py")
+    
+        print("\n")
     respuesta = raw_input(">>> ")
     respuesta = respuesta.lower()
     
@@ -93,6 +127,65 @@ while True:
     elif respuesta == "cuando sera el fin del mundo?":
         resumido("cuando sera el fin del mundo?","Cuando todos mueran")
 
+    elif respuesta == "ingresar pastilla":
+        resumido("ingresar pastilla","Ingrese el número de contenedor")
+        conte = raw_input("Ingrese numero de contenedor (1, 2, 3) \n")
+        conte = conte.lower()
+        os.system("espeak -s130 -k20 -ves+f5 'Ingrese nombre de pastilla'")
+        nomb = raw_input("Ingrese nombre de pastilla: \n")
+        nomb = nomb.lower()
+        
+        os.system("espeak -s130 -k20 -ves+f5 'Ingrese horas deseada, el formato es de 24 horas'")
+        h = raw_input("Hora (Formato  24 hrs): \n")
+        h = h.lower()
+
+        
+        os.system("espeak -s130 -k20 -ves+f5 'Ingrese minutos'")
+        m = raw_input("Minutos (Formato  24 hrs): \n")
+        m = m.lower()
+
+
+        
+        if conte == "1":
+            abrir = open('pastilla1.txt','w')
+            abrir.write(nomb)
+            abrir.close()
+            abrir = open('h1.txt','w')
+            abrir.write(h)
+            abrir.close()
+            abrir = open('m1.txt','w')
+            abrir.write(m)
+            abrir.close()
+            os.system("espeak -s130 -k20 -ves+f5 'Configuración exitosa'")
+        elif conte == "2":
+            abrir = open('pastilla2.txt','w')
+            abrir.write(nomb)
+            abrir.close()
+            abrir = open('h2.txt','w')
+            abrir.write(h)
+            abrir.close()
+            abrir = open('m2.txt','w')
+            abrir.write(m)
+            abrir.close()
+            os.system("espeak -s130 -k20 -ves+f5 'Configuración exitosa'")
+        elif conte == "3":
+            abrir = open('pastilla3.txt','w')
+            abrir.write(nomb)
+            abrir.close()
+            abrir = open('h3.txt','w')
+            abrir.write(h)
+            abrir.close()
+            abrir = open('m3.txt','w')
+            abrir.write(m)
+            abrir.close()
+            os.system("espeak -s130 -k20 -ves+f5 'Configuración exitosa'")    
+        print("\n") 
+
+
+    elif respuesta == "puta":
+        resumido("puta","vocabulario inadecuado, sonríe")
+        os.system("raspistill -o Dijo_puta.jpg -f -q 100")
+        
  
     elif respuesta == "quien es dios?":
         resumido("quien es dios?","Una figura a la que idolatran los humanos")
